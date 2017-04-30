@@ -10,7 +10,7 @@ endif
 let g:__CARGO_SEARCH_VIM__ = 1
 
 if !exists("g:cargo_search_num")
-    let g:cargo_search_num = 1
+    let g:cargo_search_num = 8
 endif
 
 if !exists("g:cargo_search_use_color")
