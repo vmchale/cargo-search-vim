@@ -25,7 +25,7 @@ endif
 let g:cargo_search_buf_name = 'CargoSearch'
 
 if !exists("g:cargo_search_buf_size")
-    let g:cargo_search_buf_size = 13
+    let g:cargo_search_buf_size = 8
 endif
 
 " Mark a buffer as scratch
