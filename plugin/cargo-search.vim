@@ -102,7 +102,7 @@ fun! CargoSearchFn(...) "{{{
     call s:ScratchMarkBuffer()
 
     " TODO check whether vim uses color by presence of
-    if g:cargo_search_use_color = 0
+    if g:cargo_search_use_color == 0
         execute '.!cargo search --color never --limit ' . g:cargo_search_num . ' '  . join(a:000,' ') . ' ' . g:cargo_search_options
     else
         execute '.!cargo search --limit ' . g:cargo_search_num . ' '  . join(a:000,' ') . ' ' . g:cargo_search_options
