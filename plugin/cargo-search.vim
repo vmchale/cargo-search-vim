@@ -127,3 +127,5 @@ fun! CargoSearchFn(...) "{{{
     nnoremap <silent> <buffer> q <esc>:close<cr>
 
 endfunction "}}}
+
+command! -nargs=* CargoSearch call CargoSearchFn(<f-args>)
