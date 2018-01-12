@@ -6,42 +6,42 @@
 \___/\__,_/_/   \__, /\____/     /____/\___/\__,_/_/   \___/_/ /_/
                /____/
 
-====================================================================
+=========================================================================
 CONTENTS                                            *CargoSearchContents*
 
     1. Usage ......................................... |CargoSearchUsage|
     2. Config ....................................... |CargoSearchConfig|
     3. License ..................................... |CargoSearchLicense|
 
-====================================================================
+=========================================================================
 Section 1: Usage                                       *CargoSearchUsage*
 
 By default, cargo_search-vim provides a command and a keybinding, viz.
 
-:CargoSearch <search terms>                                     *:CargoSearch*
+:CargoSearch <search terms>                                *:CargoSearch*
     Run cargo search and output to a scratch buffer, e.g. >
         :CargoSearch serde
 <
 
-=====================================================================
+==========================================================================
 Section 2: Config                                      *CargoSearchConfig*
 
 ----------------------------------------------------------------------
-                                                     *'g:cargo_search_num'*
+                                                    *'g:cargo_search_num'*
 Values: Num
 Default: 1
 
 This sets the number of results to fetch by default
 
 
-                                                  *'g:cargo_search_options'*
+                                                 *'g:cargo_search_options'*
 Values: String
 Default: ''
 
 This string contains any command line options that should be passed 
 to cargo_search. 
 
-======================================================================
+===========================================================================
 Section 3: License                                     *CargoSearchLicense*
 
 This plugin is licensed under the BDS3 license. 
