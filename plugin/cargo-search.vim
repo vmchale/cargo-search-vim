@@ -104,7 +104,7 @@ fun! CargoSearchFn(...) "{{{
     if strlen(a:000) == 0
         let s:pkg = expand('<cword>')
     else
-        let s:pkg = a:000
+        let s:pkg = join(a:000,' ')
     endif
 
     " TODO check whether vim uses color by presence of
