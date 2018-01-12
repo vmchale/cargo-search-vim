@@ -102,9 +102,9 @@ fun! CargoSearchFn(...) "{{{
     call s:ScratchMarkBuffer()
 
     if strlen(a:000) == 0
-        let s:pkg = join(expand("<cword>"), ' ')
+        let s:pkg = expand('<cword>')
     else
-        let s:pkg = join(a:000,' ')
+        let s:pkg = a:000
     endif
 
     " TODO check whether vim uses color by presence of
