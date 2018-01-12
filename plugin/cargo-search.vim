@@ -4,27 +4,27 @@
 " File: cargo_search.vim
 " Author: Vanessa McHale <tmchale@wisc.edu>
 " Version: 0.1.0.0
-if exists("g:__CARGO_SEARCH_VIM__")
+if exists('g:__CARGO_SEARCH_VIM__')
     finish
 endif
 let g:__CARGO_SEARCH_VIM__ = 1
 
-if !exists("g:cargo_search_num")
+if !exists('g:cargo_search_num')
     let g:cargo_search_num = 8
 endif
 
-if !exists("g:cargo_search_use_color")
+if !exists('g:cargo_search_use_color')
     let g:cargo_search_use_color = 0
-    " TODO detect AnsiEsc plugin
+    ' TODO detect AnsiEsc plugin
 endif
 
-if !exists("g:cargo_search_options")
+if !exists('g:cargo_search_options')
     let g:cargo_search_options = ''
 endif
 
 let g:cargo_search_buf_name = 'CargoSearch'
 
-if !exists("g:cargo_search_buf_size")
+if !exists('g:cargo_search_buf_size')
     let g:cargo_search_buf_size = 8
 endif
 
@@ -46,19 +46,19 @@ endfunction
 
 " Return the number of visual lines in the buffer
 fun! s:CountVisualLines()
-    let initcursor = getpos(".")
+    let initcursor = getpos('.')
     call cursor(1,1)
     let i = 0
     let previouspos = [-1,-1,-1,-1]
     " keep moving cursor down one visual line until it stops moving position
-    while previouspos != getpos(".")
+    while previouspos != getpos('.')
         let i += 1
         " store current cursor position BEFORE moving cursor
-        let previouspos = getpos(".")
+        let previouspos = getpos('.')
         normal! gj
     endwhile
     " restore cursor position
-    call setpos(".", initcursor)
+    call setpos('.', initcursor)
     return i
 endfunction
 
@@ -69,7 +69,7 @@ fun! s:CargoSearchGotoWin() "{{{
     if bufnum >= 0
         let win_num = bufwinnr( bufnum )
         " Will return negative for already deleted window
-        exe win_num . "wincmd w"
+        exe win_num . 'wincmd w'
         return 0
     endif
     return -1
@@ -77,18 +77,18 @@ endfunction "}}}
 
 " Close cargo_search Buffer
 fun! CargoSearchClose() "{{{
-    let last_buffer = bufnr("%")
+    let last_buffer = bufnr('%')
     if s:CargoSearchGotoWin() >= 0
         close
     endif
     let win_num = bufwinnr( last_buffer )
     " Will return negative for already deleted window
-    exe win_num . "wincmd w"
+    exe win_num . 'wincmd w'
 endfunction "}}}
 
 " Open a scratch buffer or reuse the previous one
 fun! CargoSearchFn(...) "{{{
-    let last_buffer = bufnr("%")
+    let last_buffer = bufnr('%')
 
     if s:CargoSearchGotoWin() < 0
         new
@@ -96,16 +96,22 @@ fun! CargoSearchFn(...) "{{{
         setl modifiable
     else
         setl modifiable
-        normal ggVGd
+        exec 'normal! ggVGd'
     endif
 
     call s:ScratchMarkBuffer()
 
+    if strlen(a:000) == 0
+        let s:pkg = join(expand("<cword>"), ' ')
+    else
+        let s:pkg = join(a:000,' ')
+    endif
+
     " TODO check whether vim uses color by presence of
     if g:cargo_search_use_color == 0
-        execute '.!cargo search --color never --limit ' . g:cargo_search_num . ' '  . join(a:000,' ') . ' ' . g:cargo_search_options
+        execute '.!cargo search --color never --limit ' . g:cargo_search_num . ' '  . s:pkg . ' ' . g:cargo_search_options
     else
-        execute '.!cargo search --limit ' . g:cargo_search_num . ' '  . join(a:000,' ') . ' ' . g:cargo_search_options
+        execute '.!cargo search --limit ' . g:cargo_search_num . ' '  . s:pkg . ' ' . g:cargo_search_options
     endif
 
     setl nomodifiable
@@ -121,5 +127,3 @@ fun! CargoSearchFn(...) "{{{
     nnoremap <silent> <buffer> q <esc>:close<cr>
 
 endfunction "}}}
-
-command! -nargs=* CargoSearch call CargoSearchFn(<f-args>)
